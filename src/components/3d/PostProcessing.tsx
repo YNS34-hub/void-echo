@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import {
   EffectComposer,
@@ -24,6 +24,12 @@ export default function PostProcessing({
 }: PostProcessingProps) {
   const chromaticRef = useRef<any>(null)
 
+  // 使用 useMemo 缓存 Vector2 对象
+  const chromaticOffset = useMemo(() => new THREE.Vector2(0.002, 0.002), [])
+  const glitchDelay = useMemo(() => new THREE.Vector2(0.5, 1.0), [])
+  const glitchDuration = useMemo(() => new THREE.Vector2(0.1, 0.3), [])
+  const glitchStrength = useMemo(() => new THREE.Vector2(0.2, 0.4), [])
+
   useFrame(() => {
     if (chromaticRef.current) {
       // 根据滚动速度调整色差强度
@@ -45,16 +51,16 @@ export default function PostProcessing({
       {/* 色差效果 */}
       <ChromaticAberration
         ref={chromaticRef}
-        offset={new THREE.Vector2(0.002, 0.002)}
+        offset={chromaticOffset}
         radialModulation={true}
         modulationOffset={0.5}
       />
 
       {/* 故障效果 - 滚动时触发 */}
       <Glitch
-        delay={new THREE.Vector2(0.5, 1.0)}
-        duration={new THREE.Vector2(0.1, 0.3)}
-        strength={new THREE.Vector2(0.2, 0.4)}
+        delay={glitchDelay}
+        duration={glitchDuration}
+        strength={glitchStrength}
         mode={GlitchMode.SPORADIC}
         active={scrollVelocity > 50}
         ratio={0.85}
