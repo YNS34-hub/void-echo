@@ -1,16 +1,7 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { useFrame } from '@react-three/fiber'
-import {
-  EffectComposer,
-  Bloom,
-  ChromaticAberration,
-  Glitch,
-  Noise,
-  Vignette,
-} from '@react-three/postprocessing'
-import { GlitchMode, BlendFunction } from 'postprocessing'
+import { useRef } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 
 interface PostProcessingProps {
@@ -18,69 +9,35 @@ interface PostProcessingProps {
   scrollVelocity: number
 }
 
+// 使用原生 Three.js 实现简单的后期效果
 export default function PostProcessing({
   scrollProgress,
   scrollVelocity,
 }: PostProcessingProps) {
-  const chromaticRef = useRef<any>(null)
-  const glitchRef = useRef<any>(null)
+  const { scene } = useThree()
+  const fogRef = useRef<THREE.Fog | null>(null)
 
-  // 通过 ref 初始化色差偏移
-  useEffect(() => {
-    if (chromaticRef.current) {
-      chromaticRef.current.offset = new THREE.Vector2(0.002, 0.002)
-    }
-  }, [])
+  // 初始化雾效果
+  if (!fogRef.current && scene) {
+    fogRef.current = new THREE.FogExp2(0x000000, 0.1)
+    scene.fog = fogRef.current
+  }
 
-  // 每帧更新效果参数
   useFrame(() => {
-    // 色差效果 - 根据滚动速度调整
-    if (chromaticRef.current) {
-      const intensity = 0.002 + scrollVelocity * 0.0001
-      chromaticRef.current.offset.set(intensity, intensity)
+    // 根据滚动调整雾的密度
+    if (fogRef.current) {
+      const fog = fogRef.current as THREE.FogExp2
+      fog.density = 0.05 + scrollProgress * 0.15
+    }
+
+    // 根据滚动速度调整场景背景亮度
+    if (scene.background) {
+      const bg = scene.background as THREE.Color
+      const brightness = Math.min(scrollVelocity * 0.0002, 0.05)
+      bg.setRGB(brightness, brightness * 0.5, brightness)
     }
   })
 
-  return (
-    <EffectComposer>
-      {/* 辉光效果 */}
-      <Bloom
-        intensity={1.5 + scrollProgress}
-        luminanceThreshold={0.2}
-        luminanceSmoothing={0.9}
-        mipmapBlur
-      />
-
-      {/* 色差效果 - offset 通过 useEffect 设置，不在 JSX 中传递 */}
-      <ChromaticAberration
-        ref={chromaticRef}
-        radialModulation={true}
-        modulationOffset={0.5}
-      />
-
-      {/* 故障效果 - 滚动时触发 */}
-      <Glitch
-        ref={glitchRef}
-        delay={0.5}
-        duration={0.15}
-        strength={0.3}
-        mode={GlitchMode.SPORADIC}
-        active={scrollVelocity > 50}
-        ratio={0.85}
-      />
-
-      {/* 噪点 */}
-      <Noise
-        opacity={0.02 + scrollProgress * 0.05}
-        blendFunction={BlendFunction.OVERLAY}
-      />
-
-      {/* 暗角 */}
-      <Vignette
-        eskil={false}
-        offset={0.1 + scrollProgress * 0.3}
-        darkness={1.0 + scrollProgress}
-      />
-    </EffectComposer>
-  )
+  // 后期效果现在通过场景属性实现（雾、背景色等）
+  return null
 }
