@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import {
   EffectComposer,
@@ -23,16 +23,19 @@ export default function PostProcessing({
   scrollVelocity,
 }: PostProcessingProps) {
   const chromaticRef = useRef<any>(null)
+  const glitchRef = useRef<any>(null)
 
-  // 使用 useMemo 缓存 Vector2 对象
-  const chromaticOffset = useMemo(() => new THREE.Vector2(0.002, 0.002), [])
-  const glitchDelay = useMemo(() => new THREE.Vector2(0.5, 1.0), [])
-  const glitchDuration = useMemo(() => new THREE.Vector2(0.1, 0.3), [])
-  const glitchStrength = useMemo(() => new THREE.Vector2(0.2, 0.4), [])
-
-  useFrame(() => {
+  // 通过 ref 初始化色差偏移
+  useEffect(() => {
     if (chromaticRef.current) {
-      // 根据滚动速度调整色差强度
+      chromaticRef.current.offset = new THREE.Vector2(0.002, 0.002)
+    }
+  }, [])
+
+  // 每帧更新效果参数
+  useFrame(() => {
+    // 色差效果 - 根据滚动速度调整
+    if (chromaticRef.current) {
       const intensity = 0.002 + scrollVelocity * 0.0001
       chromaticRef.current.offset.set(intensity, intensity)
     }
@@ -48,19 +51,19 @@ export default function PostProcessing({
         mipmapBlur
       />
 
-      {/* 色差效果 */}
+      {/* 色差效果 - offset 通过 useEffect 设置，不在 JSX 中传递 */}
       <ChromaticAberration
         ref={chromaticRef}
-        offset={chromaticOffset}
         radialModulation={true}
         modulationOffset={0.5}
       />
 
       {/* 故障效果 - 滚动时触发 */}
       <Glitch
-        delay={glitchDelay}
-        duration={glitchDuration}
-        strength={glitchStrength}
+        ref={glitchRef}
+        delay={0.5}
+        duration={0.15}
+        strength={0.3}
         mode={GlitchMode.SPORADIC}
         active={scrollVelocity > 50}
         ratio={0.85}
