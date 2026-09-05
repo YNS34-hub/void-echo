@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VOID//ECHO
 
-## Getting Started
+> An experimental immersive web experience exploring 3D interaction, motion, and surreal digital storytelling.
 
-First, run the development server:
+**Status:** Experimental concept · not a production product
+
+VOID//ECHO is a personal interface experiment built around a dark cyber-surreal visual language. The project combines a real-time 3D scene with scroll-driven narrative sections, motion systems, and interaction effects to explore how atmosphere and spatial UI can shape a web experience.
+
+## What this project explores
+
+- Real-time 3D scenes in the browser
+- Scroll-driven visual storytelling
+- Motion choreography and transition design
+- Layered interaction effects and responsive UI
+- Performance-aware composition of 3D, animation, and interface elements
+
+## Tech stack
+
+- **Next.js 16**
+- **React 19**
+- **TypeScript**
+- **Three.js**
+- **React Three Fiber / Drei**
+- **React Three Postprocessing**
+- **Framer Motion**
+- **GSAP**
+- **Lenis**
+- **Tailwind CSS 4**
+
+## Interaction model
+
+The experience is structured as a sequence of visual states:
+
+1. **Distortion** — reality begins to destabilize
+2. **Fragment** — perception splits into parallel visual streams
+3. **Corruption** — signal and structure decay into noise
+4. **Transcend** — the interface resolves into a final state
+
+The page also includes a dedicated “void mode”, particle-style click feedback, animated typography, and a persistent 3D scene behind the content layer.
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Production check:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run lint
+```
 
-## Learn More
+## Repository structure
 
-To learn more about Next.js, take a look at the following resources:
+```text
+src/
+├── app/            # application shell and page composition
+├── components/     # 3D scene, UI, and content sections
+├── hooks/          # interaction and state hooks
+└── utils/          # shared utilities
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scope
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This repository is intentionally presented as a **visual and interaction experiment**. It is not intended to represent a finished commercial product. The main value of the project is the exploration of 3D web presentation, motion systems, and immersive interface design.
 
-## Deploy on Vercel
+## Author
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Jie Tian**  
+Mathematics master's student exploring AI-assisted research, interactive systems, and digital product experiments.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Portfolio: https://yns34-hub.github.io/
+- GitHub: https://github.com/YNS34-hub
