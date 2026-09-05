@@ -26,12 +26,13 @@ The four narrative states are:
 - dedicated “void mode” state
 - particle-style click feedback
 - animated typography and transition choreography
-- layered motion with Framer Motion / GSAP
-- smooth scrolling and responsive composition
+- shader-driven geometry and particle motion
+- pointer-reactive spatial movement
+- responsive composition with native scroll tracking
 
 ## Stack
 
-`Next.js 16` · `React 19` · `TypeScript` · `Three.js` · `React Three Fiber` · `Drei` · `React Three Postprocessing` · `Framer Motion` · `GSAP` · `Lenis` · `Tailwind CSS 4`
+`Next.js 16` · `React 19` · `TypeScript` · `Three.js` · `React Three Fiber` · `Drei` · `Framer Motion` · `Tailwind CSS 4`
 
 ## Structure
 
@@ -40,8 +41,18 @@ src/
 ├── app/            # page composition and application shell
 ├── components/     # 3D scene, UI, and narrative sections
 ├── hooks/          # interaction/state hooks
-└── utils/          # shared utilities
+└── utils/          # shared constants, shaders, and utilities
 ```
+
+## Quality gate
+
+Every push and pull request runs an automated GitHub Actions check:
+
+```text
+npm ci → ESLint → production build
+```
+
+The procedural 3D layouts are deterministic so server/client rendering remains stable while preserving the intended visual variation.
 
 ## Run locally
 
@@ -53,8 +64,8 @@ npm run dev
 Production checks:
 
 ```bash
-npm run build
 npm run lint
+npm run build
 ```
 
 ## Notes
