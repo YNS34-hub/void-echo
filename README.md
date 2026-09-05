@@ -1,42 +1,47 @@
+![VOID ECHO — immersive 3D web experiment](./docs/readme-cover.svg)
+
 # VOID//ECHO
 
-> An experimental immersive web experience exploring 3D interaction, motion, and surreal digital storytelling.
+An experimental web piece exploring **spatial UI, motion systems, and surreal digital storytelling**.
 
-**Status:** Experimental concept · not a production product
+**Status:** visual / interaction study
 
-VOID//ECHO is a personal interface experiment built around a dark cyber-surreal visual language. The project combines a real-time 3D scene with scroll-driven narrative sections, motion systems, and interaction effects to explore how atmosphere and spatial UI can shape a web experience.
+---
 
-## What this project explores
+## Concept
 
-- Real-time 3D scenes in the browser
-- Scroll-driven visual storytelling
-- Motion choreography and transition design
-- Layered interaction effects and responsive UI
-- Performance-aware composition of 3D, animation, and interface elements
+VOID//ECHO treats the page as a sequence of visual states rather than a conventional landing page. A persistent 3D scene sits behind the content while typography, scroll position, and interaction effects progressively alter the atmosphere.
 
-## Tech stack
+The four narrative states are:
 
-- **Next.js 16**
-- **React 19**
-- **TypeScript**
-- **Three.js**
-- **React Three Fiber / Drei**
-- **React Three Postprocessing**
-- **Framer Motion**
-- **GSAP**
-- **Lenis**
-- **Tailwind CSS 4**
+1. `DISTORTION` — the interface begins to destabilize
+2. `FRAGMENT` — visual continuity splits
+3. `CORRUPTION` — signal gives way to noise
+4. `TRANSCEND` — the experience resolves into a final state
 
-## Interaction model
+## Interaction system
 
-The experience is structured as a sequence of visual states:
+- persistent real-time 3D scene
+- scroll-driven narrative sections
+- dedicated “void mode” state
+- particle-style click feedback
+- animated typography and transition choreography
+- layered motion with Framer Motion / GSAP
+- smooth scrolling and responsive composition
 
-1. **Distortion** — reality begins to destabilize
-2. **Fragment** — perception splits into parallel visual streams
-3. **Corruption** — signal and structure decay into noise
-4. **Transcend** — the interface resolves into a final state
+## Stack
 
-The page also includes a dedicated “void mode”, particle-style click feedback, animated typography, and a persistent 3D scene behind the content layer.
+`Next.js 16` · `React 19` · `TypeScript` · `Three.js` · `React Three Fiber` · `Drei` · `React Three Postprocessing` · `Framer Motion` · `GSAP` · `Lenis` · `Tailwind CSS 4`
+
+## Structure
+
+```text
+src/
+├── app/            # page composition and application shell
+├── components/     # 3D scene, UI, and narrative sections
+├── hooks/          # interaction/state hooks
+└── utils/          # shared utilities
+```
 
 ## Run locally
 
@@ -45,33 +50,13 @@ npm install
 npm run dev
 ```
 
-Then open `http://localhost:3000`.
-
-Production check:
+Production checks:
 
 ```bash
 npm run build
 npm run lint
 ```
 
-## Repository structure
+## Notes
 
-```text
-src/
-├── app/            # application shell and page composition
-├── components/     # 3D scene, UI, and content sections
-├── hooks/          # interaction and state hooks
-└── utils/          # shared utilities
-```
-
-## Scope
-
-This repository is intentionally presented as a **visual and interaction experiment**. It is not intended to represent a finished commercial product. The main value of the project is the exploration of 3D web presentation, motion systems, and immersive interface design.
-
-## Author
-
-**Jie Tian**  
-Mathematics master's student exploring AI-assisted research, interactive systems, and digital product experiments.
-
-- Portfolio: https://yns34-hub.github.io/
-- GitHub: https://github.com/YNS34-hub
+This repository is intentionally an **experiment**, not a production product. The focus is visual systems, motion composition, and the relationship between 3D space and interface behavior.
