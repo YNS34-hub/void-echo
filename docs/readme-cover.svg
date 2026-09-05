@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="VOID ECHO — immersive 3D web experiment">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a0a0f"/><stop offset="1" stop-color="#10131a"/></linearGradient>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#g)"/>
+  <g opacity=".16" stroke="#7d8792" stroke-width="1">
+    <path d="M0 72H1200M0 144H1200M0 216H1200M0 288H1200"/>
+    <path d="M120 0V360M240 0V360M360 0V360M480 0V360M600 0V360M720 0V360M840 0V360M960 0V360M1080 0V360"/>
+  </g>
+  <circle cx="942" cy="181" r="114" fill="none" stroke="url(#a)" stroke-width="2" opacity=".75"/>
+  <circle cx="942" cy="181" r="72" fill="none" stroke="#dbeafe" stroke-width="1" opacity=".25"/>
+  <path d="M846 210c49-96 135-120 207-54-42 73-111 112-207 54Z" fill="none" stroke="url(#a)" stroke-width="6" opacity=".55"/>
+  <text x="64" y="58" font-family="Arial,Helvetica,sans-serif" font-size="14" letter-spacing="3.5" fill="#8993a0">INTERACTIVE STUDY / 3D WEB</text>
+  <text x="64" y="160" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="700" letter-spacing="-2" fill="#f8fafc">VOID//ECHO</text>
+  <text x="64" y="207" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#b9c2cc">IMMERSIVE MOTION + SPATIAL INTERFACE EXPERIMENT</text>
+  <rect x="64" y="245" width="230" height="2" fill="url(#a)"/>
+  <text x="64" y="286" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#798390">Next.js · Three.js · R3F · Framer Motion · GSAP</text>
+  <text x="64" y="326" font-family="Arial,Helvetica,sans-serif" font-size="12" letter-spacing="2.4" fill="#5f6874">EXPERIMENT 02 / YNS34</text>
+</svg>
