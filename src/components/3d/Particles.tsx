@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { SCENE_CONFIG } from '@/utils/constants'
@@ -69,23 +69,6 @@ export default function Particles({
     []
   )
 
-  useEffect(() => {
-    const syncPixelRatio = () => {
-      shaderMaterial.uniforms.uPixelRatio.value = Math.min(
-        window.devicePixelRatio || 1,
-        2
-      )
-    }
-
-    syncPixelRatio()
-    window.addEventListener('resize', syncPixelRatio)
-
-    return () => {
-      window.removeEventListener('resize', syncPixelRatio)
-      shaderMaterial.dispose()
-    }
-  }, [shaderMaterial])
-
   useFrame((state) => {
     if (!pointsRef.current) return
 
@@ -95,6 +78,7 @@ export default function Particles({
     material.uniforms.uTime.value = time
     material.uniforms.uScrollProgress.value = scrollProgress
     material.uniforms.uMouse.value.set(mouse.normalizedX, mouse.normalizedY)
+    material.uniforms.uPixelRatio.value = Math.min(state.gl.getPixelRatio(), 2)
     material.uniforms.uSize.value = Math.max(8, 30 + scrollVelocity * 0.1)
 
     pointsRef.current.rotation.y += 0.001 * (1 + scrollVelocity * 0.01)
