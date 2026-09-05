@@ -45,10 +45,14 @@ export function useScrollProgress(): ScrollProgress {
   useEffect(() => {
     lastScrollYRef.current = window.scrollY
     lastTimeRef.current = performance.now()
-    handleScroll()
 
+    const initialFrame = window.requestAnimationFrame(handleScroll)
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+
+    return () => {
+      window.cancelAnimationFrame(initialFrame)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [handleScroll])
 
   return { progress, velocity, direction, currentSection }
