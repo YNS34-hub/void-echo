@@ -1,4 +1,4 @@
-![VOID ECHO — immersive 3D web experiment](./docs/readme-cover.svg)
+![VOID ECHO — immersive 3D web experiment](./docs/github-cover.png)
 
 # VOID//ECHO
 
