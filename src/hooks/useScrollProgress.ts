@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ScrollProgress {
   progress: number
@@ -14,29 +14,39 @@ export function useScrollProgress(): ScrollProgress {
   const [velocity, setVelocity] = useState(0)
   const [direction, setDirection] = useState<'up' | 'down'>('down')
   const [currentSection, setCurrentSection] = useState(0)
-  const [lastScrollY, setLastScrollY] = useState(0)
-  const [lastTime, setLastTime] = useState(Date.now())
+
+  const lastScrollYRef = useRef(0)
+  const lastTimeRef = useRef(0)
 
   const handleScroll = useCallback(() => {
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
-    const currentProgress = window.scrollY / scrollHeight
-    const currentTime = Date.now()
-    const deltaTime = currentTime - lastTime
-    const deltaY = window.scrollY - lastScrollY
+    const scrollHeight = Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      1
+    )
+    const currentScrollY = window.scrollY
+    const currentProgress = Math.min(Math.max(currentScrollY / scrollHeight, 0), 1)
+    const currentTime = performance.now()
+    const deltaTime = Math.max(currentTime - lastTimeRef.current, 1)
+    const deltaY = currentScrollY - lastScrollYRef.current
 
-    const currentVelocity = Math.abs(deltaY / deltaTime) * 1000
+    const currentVelocity = Math.min(Math.abs(deltaY / deltaTime) * 1000, 5000)
     const newDirection = deltaY >= 0 ? 'down' : 'up'
-    const section = Math.floor(currentProgress * 5)
+    const section = Math.min(Math.floor(currentProgress * 5), 4)
 
     setProgress(currentProgress)
     setVelocity(currentVelocity)
     setDirection(newDirection)
-    setCurrentSection(Math.min(section, 4))
-    setLastScrollY(window.scrollY)
-    setLastTime(currentTime)
-  }, [lastScrollY, lastTime])
+    setCurrentSection(section)
+
+    lastScrollYRef.current = currentScrollY
+    lastTimeRef.current = currentTime
+  }, [])
 
   useEffect(() => {
+    lastScrollYRef.current = window.scrollY
+    lastTimeRef.current = performance.now()
+    handleScroll()
+
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
