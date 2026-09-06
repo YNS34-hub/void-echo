@@ -1,6 +1,11 @@
-![VOID ECHO — immersive 3D web experiment](./docs/github-cover.png)
+[![VOID ECHO — immersive 3D web experiment](./docs/github-cover.png)](https://yns34-hub.github.io/void-echo/)
 
 # VOID//ECHO
+
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-OPEN_VOID-8B5CF6?style=for-the-badge)](https://yns34-hub.github.io/void-echo/)
+[![Deploy to GitHub Pages](https://github.com/YNS34-hub/void-echo/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/YNS34-hub/void-echo/actions/workflows/deploy-pages.yml)
+
+**Live:** https://yns34-hub.github.io/void-echo/
 
 An experimental web piece exploring **spatial UI, motion systems, and surreal digital storytelling**.
 
